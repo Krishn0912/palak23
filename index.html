@@ -1,0 +1,1724 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>palak23 — for you, always</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=DM+Sans:wght@300;400;500;600&family=Great+Vibes&display=swap" rel="stylesheet">
+
+<style>
+/* =========================================================
+   PALAK23 — CINEMATIC EDITION
+   =========================================================
+   EVERYTHING IS IN THIS ONE FILE.
+
+   EASY EDITS:
+   1. PASSWORD -> change PASSWORD in the JS section.
+   2. SONG -> change SONG_FILE in the JS section.
+   3. LETTER -> find "YOUR LETTER STARTS HERE".
+   4. PHOTOS -> replace the 6 image URLs.
+   5. PHOTO CAPTIONS -> replace the 6 captions.
+   6. SHAYARI -> find "YOUR SHAYARI STARTS HERE".
+   7. FINAL MESSAGE -> find "FINAL MESSAGE".
+   ========================================================= */
+
+:root{
+  --ink:#26161c;
+  --wine:#5b2338;
+  --rose:#9d526d;
+  --dust:#c9899c;
+  --blush:#ead1d6;
+  --cream:#f8f0e7;
+  --paper:#fffaf5;
+  --gold:#c9a36a;
+  --gold-light:#e4c998;
+  --white:#fff;
+  --shadow:0 25px 70px rgba(54,23,34,.16);
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  background:var(--cream);
+  color:var(--ink);
+  font-family:"DM Sans",sans-serif;
+  overflow-x:hidden;
+}
+
+button,input{
+  font:inherit;
+}
+
+button{
+  -webkit-tap-highlight-color:transparent;
+}
+
+::selection{
+  background:var(--wine);
+  color:white;
+}
+
+/* =========================================================
+   PASSWORD
+   ========================================================= */
+
+#lockScreen{
+  position:fixed;
+  inset:0;
+  z-index:99999;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:25px;
+  background:
+    radial-gradient(circle at 20% 15%,rgba(255,255,255,.85),transparent 25%),
+    radial-gradient(circle at 85% 80%,rgba(201,163,106,.18),transparent 25%),
+    linear-gradient(145deg,#f4e4e5,#ead1d6 55%,#c9899c);
+  transition:opacity 1s ease,visibility 1s ease;
+}
+
+#lockScreen.open{
+  opacity:0;
+  visibility:hidden;
+  pointer-events:none;
+}
+
+.lock-card{
+  width:min(440px,100%);
+  padding:52px 35px 42px;
+  text-align:center;
+  background:rgba(255,250,245,.76);
+  backdrop-filter:blur(25px);
+  border:1px solid rgba(255,255,255,.75);
+  box-shadow:var(--shadow);
+  position:relative;
+  overflow:hidden;
+}
+
+.lock-card::before,
+.lock-card::after{
+  content:"";
+  position:absolute;
+  width:100px;
+  height:100px;
+  border:1px solid rgba(201,163,106,.35);
+  transform:rotate(45deg);
+}
+
+.lock-card::before{
+  left:-65px;
+  top:-65px;
+}
+
+.lock-card::after{
+  right:-65px;
+  bottom:-65px;
+}
+
+.lock-jasmine{
+  font-size:38px;
+  margin-bottom:12px;
+  animation:float 4s ease-in-out infinite;
+}
+
+.lock-card .tiny{
+  color:var(--gold);
+  text-transform:uppercase;
+  letter-spacing:5px;
+  font-size:9px;
+  margin-bottom:16px;
+}
+
+.lock-card h1{
+  font-family:"Great Vibes",cursive;
+  color:var(--wine);
+  font-size:76px;
+  font-weight:400;
+  line-height:.9;
+  margin-bottom:18px;
+}
+
+.lock-card p{
+  color:#74515d;
+  font-family:"Cormorant Garamond",serif;
+  font-size:18px;
+  margin-bottom:27px;
+}
+
+.lock-input{
+  width:100%;
+  padding:15px 18px;
+  text-align:center;
+  letter-spacing:6px;
+  border:1px solid #d7b1bc;
+  background:rgba(255,255,255,.6);
+  outline:none;
+  color:var(--wine);
+  border-radius:2px;
+}
+
+.lock-input:focus{
+  border-color:var(--gold);
+  box-shadow:0 0 0 4px rgba(201,163,106,.1);
+}
+
+.enter{
+  width:100%;
+  margin-top:12px;
+  padding:15px;
+  border:1px solid var(--wine);
+  background:var(--wine);
+  color:white;
+  cursor:pointer;
+  border-radius:2px;
+  transition:.3s;
+}
+
+.enter:hover{
+  background:#702c46;
+  transform:translateY(-2px);
+}
+
+#wrong{
+  min-height:20px;
+  margin-top:12px;
+  color:#9d526d;
+  font-size:11px;
+}
+
+/* =========================================================
+   SITE
+   ========================================================= */
+
+#site{
+  opacity:0;
+  pointer-events:none;
+  transition:opacity 1s ease;
+}
+
+#site.show{
+  opacity:1;
+  pointer-events:auto;
+}
+
+.page{
+  min-height:100vh;
+  position:relative;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+  padding:90px 24px;
+}
+
+.page-inner{
+  width:min(1100px,100%);
+  position:relative;
+  z-index:5;
+}
+
+.page-number{
+  position:absolute;
+  top:28px;
+  left:30px;
+  font-size:9px;
+  letter-spacing:4px;
+  color:rgba(91,35,56,.5);
+  text-transform:uppercase;
+  z-index:10;
+}
+
+.corner{
+  position:absolute;
+  font-family:"Cormorant Garamond",serif;
+  font-size:11px;
+  letter-spacing:3px;
+  color:rgba(91,35,56,.45);
+  z-index:10;
+}
+
+.corner.right{
+  top:28px;
+  right:30px;
+}
+
+.gold-line{
+  width:55px;
+  height:1px;
+  background:var(--gold);
+  margin:20px auto;
+}
+
+/* =========================================================
+   FLOATING JASMINE
+   ========================================================= */
+
+.jasmine-layer{
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  overflow:hidden;
+  z-index:1;
+}
+
+.jasmine{
+  position:absolute;
+  width:36px;
+  height:36px;
+  opacity:.7;
+  filter:drop-shadow(0 5px 7px rgba(50,20,30,.12));
+  animation:sway 5s ease-in-out infinite;
+}
+
+.jasmine::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    radial-gradient(ellipse at 50% 8%,#fff 0 29%,transparent 31%),
+    radial-gradient(ellipse at 92% 50%,#fff 0 29%,transparent 31%),
+    radial-gradient(ellipse at 50% 92%,#fff 0 29%,transparent 31%),
+    radial-gradient(ellipse at 8% 50%,#fff 0 29%,transparent 31%);
+  border-radius:50%;
+}
+
+.jasmine::after{
+  content:"";
+  position:absolute;
+  width:9px;
+  height:9px;
+  left:50%;
+  top:50%;
+  transform:translate(-50%,-50%);
+  border-radius:50%;
+  background:#dfbd79;
+}
+
+@keyframes sway{
+  0%,100%{transform:rotate(-7deg) translateY(0)}
+  50%{transform:rotate(8deg) translateY(-9px)}
+}
+
+@keyframes float{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-8px)}
+}
+
+/* =========================================================
+   PAGE 1
+   ========================================================= */
+
+#home{
+  background:
+    radial-gradient(circle at 80% 25%,rgba(201,163,106,.18),transparent 24%),
+    radial-gradient(circle at 15% 75%,rgba(157,82,109,.12),transparent 25%),
+    linear-gradient(145deg,#f9f1eb,#ead1d6);
+}
+
+.home-content{
+  text-align:center;
+  max-width:900px;
+}
+
+.eyebrow{
+  text-transform:uppercase;
+  letter-spacing:7px;
+  font-size:10px;
+  color:var(--gold);
+  margin-bottom:24px;
+}
+
+.home-title{
+  font-family:"Cormorant Garamond",serif;
+  font-size:clamp(70px,13vw,155px);
+  font-weight:300;
+  line-height:.78;
+  color:var(--wine);
+  letter-spacing:-5px;
+}
+
+.home-title .script{
+  display:block;
+  font-family:"Great Vibes",cursive;
+  font-size:1.15em;
+  font-weight:400;
+  letter-spacing:0;
+  color:var(--rose);
+  margin-top:8px;
+}
+
+.home-sub{
+  margin:34px auto 0;
+  max-width:500px;
+  font-family:"Cormorant Garamond",serif;
+  font-size:23px;
+  color:#76515d;
+}
+
+.scroll{
+  position:absolute;
+  bottom:30px;
+  left:50%;
+  transform:translateX(-50%);
+  text-align:center;
+  color:#8d6470;
+  text-transform:uppercase;
+  letter-spacing:4px;
+  font-size:8px;
+  animation:scrollBounce 2s infinite;
+}
+
+.scroll span{
+  display:block;
+  font-size:22px;
+  margin-top:7px;
+  color:var(--gold);
+}
+
+@keyframes scrollBounce{
+  0%,100%{transform:translate(-50%,0)}
+  50%{transform:translate(-50%,9px)}
+}
+
+/* =========================================================
+   PAGE 2 — LETTER
+   ========================================================= */
+
+#letterPage{
+  background:#f5e9e4;
+}
+
+.letter-layout{
+  display:grid;
+  grid-template-columns:.75fr 1.25fr;
+  gap:70px;
+  align-items:center;
+}
+
+.section-label{
+  text-transform:uppercase;
+  color:var(--gold);
+  font-size:9px;
+  letter-spacing:5px;
+  margin-bottom:18px;
+}
+
+.section-title{
+  font-family:"Cormorant Garamond",serif;
+  color:var(--wine);
+  font-size:clamp(50px,7vw,88px);
+  font-weight:400;
+  line-height:.9;
+}
+
+.section-title.script{
+  font-family:"Great Vibes",cursive;
+  font-size:clamp(55px,8vw,95px);
+  color:var(--rose);
+}
+
+.side-copy{
+  margin-top:28px;
+  color:#76515d;
+  font-family:"Cormorant Garamond",serif;
+  font-size:20px;
+  line-height:1.65;
+}
+
+.letter{
+  background:
+    linear-gradient(rgba(255,250,245,.93),rgba(255,250,245,.93)),
+    repeating-linear-gradient(0deg,transparent 0,transparent 31px,rgba(157,82,109,.07) 32px);
+  padding:55px clamp(25px,6vw,65px);
+  box-shadow:var(--shadow);
+  position:relative;
+  border:1px solid rgba(201,163,106,.22);
+}
+
+.letter::before{
+  content:"";
+  position:absolute;
+  inset:12px;
+  border:1px solid rgba(201,163,106,.25);
+  pointer-events:none;
+}
+
+.letter p{
+  position:relative;
+  z-index:2;
+  font-family:"Cormorant Garamond",serif;
+  font-size:21px;
+  line-height:1.85;
+  color:#51323e;
+}
+
+.edit-me{
+  color:#a36b7b!important;
+  font-style:italic;
+}
+
+/* =========================================================
+   PAGE 3 — MEMORIES
+   ========================================================= */
+
+#memories{
+  background:
+    radial-gradient(circle at 10% 20%,rgba(201,163,106,.1),transparent 20%),
+    #eee0dc;
+}
+
+.memories-head{
+  display:flex;
+  align-items:end;
+  justify-content:space-between;
+  margin-bottom:38px;
+}
+
+.memories-head .section-title{
+  font-size:clamp(48px,7vw,80px);
+}
+
+.memory-count{
+  color:var(--gold);
+  font-size:11px;
+  letter-spacing:3px;
+  padding-bottom:10px;
+}
+
+.photo-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:22px;
+}
+
+.photo{
+  background:#fffaf5;
+  padding:10px 10px 18px;
+  box-shadow:0 14px 35px rgba(54,23,34,.12);
+  transition:.4s;
+  transform:rotate(var(--r));
+}
+
+.photo:hover{
+  transform:rotate(0) translateY(-10px);
+  box-shadow:0 22px 45px rgba(54,23,34,.17);
+}
+
+.photo img{
+  display:block;
+  width:100%;
+  aspect-ratio:4/4.5;
+  object-fit:cover;
+  background:#e5c8cf;
+  filter:saturate(.88);
+}
+
+.photo-caption{
+  font-family:"Cormorant Garamond",serif;
+  text-align:center;
+  color:#704352;
+  font-size:16px;
+  padding:11px 5px 0;
+}
+
+.shayari{
+  width:min(720px,100%);
+  margin:70px auto 0;
+  text-align:center;
+  color:#633846;
+  font-family:"Cormorant Garamond",serif;
+  font-size:24px;
+  line-height:1.8;
+  font-style:italic;
+  position:relative;
+  padding:35px 25px;
+}
+
+.shayari::before,
+.shayari::after{
+  content:"";
+  display:block;
+  width:80px;
+  height:1px;
+  background:var(--gold);
+  margin:0 auto 25px;
+}
+
+.shayari::after{
+  margin:25px auto 0;
+}
+
+/* =========================================================
+   PAGE 4 — QUESTION
+   ========================================================= */
+
+#questionPage{
+  background:
+    radial-gradient(circle at 50% 45%,#fff7f0,transparent 35%),
+    linear-gradient(150deg,#e9d0d5,#d6b2bd);
+  text-align:center;
+}
+
+.question-wrap{
+  position:relative;
+}
+
+.question-small{
+  text-transform:uppercase;
+  letter-spacing:6px;
+  font-size:9px;
+  color:var(--gold);
+  margin-bottom:20px;
+}
+
+.question{
+  font-family:"Great Vibes",cursive;
+  font-size:clamp(65px,11vw,135px);
+  font-weight:400;
+  color:var(--wine);
+  line-height:.95;
+}
+
+.question-sub{
+  font-family:"Cormorant Garamond",serif;
+  font-size:20px;
+  color:#795460;
+  margin-top:22px;
+}
+
+.answers{
+  width:min(500px,100%);
+  height:190px;
+  margin:25px auto 0;
+  position:relative;
+}
+
+.answer{
+  position:absolute;
+  top:65px;
+  border:none;
+  cursor:pointer;
+  padding:14px 38px;
+  border-radius:100px;
+  transition:.25s;
+}
+
+#yes{
+  left:25%;
+  background:var(--wine);
+  color:#fff;
+  box-shadow:0 12px 30px rgba(91,35,56,.25);
+}
+
+#yes:hover{
+  transform:scale(1.07);
+}
+
+#no{
+  left:57%;
+  background:rgba(255,250,245,.8);
+  color:var(--wine);
+  border:1px solid rgba(91,35,56,.25);
+}
+
+/* =========================================================
+   SECRET PAGE
+   ========================================================= */
+
+#secret{
+  display:none;
+  background:
+    radial-gradient(circle at 50% 45%,rgba(255,250,245,.95),transparent 18%),
+    radial-gradient(circle at 15% 20%,rgba(201,163,106,.16),transparent 20%),
+    linear-gradient(150deg,#5b2338,#301822 55%,#1d1015);
+  color:white;
+}
+
+#secret.revealed{
+  display:flex;
+  animation:secretIn 1.5s ease both;
+}
+
+@keyframes secretIn{
+  from{opacity:0;transform:scale(1.04)}
+  to{opacity:1;transform:scale(1)}
+}
+
+.secret-inner{
+  text-align:center;
+  max-width:1000px;
+}
+
+.secret-overline{
+  color:var(--gold-light);
+  letter-spacing:7px;
+  text-transform:uppercase;
+  font-size:10px;
+}
+
+.secret-script{
+  font-family:"Great Vibes",cursive;
+  color:#f1d8b3;
+  font-size:clamp(80px,15vw,180px);
+  font-weight:400;
+  line-height:.9;
+  margin:25px 0;
+}
+
+.secret-message{
+  max-width:780px;
+  margin:0 auto;
+  color:#f5e5df;
+  font-family:"Cormorant Garamond",serif;
+  font-size:clamp(24px,4vw,38px);
+  line-height:1.5;
+}
+
+.secret-sign{
+  margin-top:40px;
+  color:#d6a9b8;
+  font-family:"Great Vibes",cursive;
+  font-size:42px;
+}
+
+.celebration-layer{
+  position:absolute;
+  inset:0;
+  overflow:hidden;
+  pointer-events:none;
+  z-index:2;
+}
+
+.balloon{
+  position:absolute;
+  bottom:-100px;
+  font-size:30px;
+  animation:rise linear forwards;
+}
+
+@keyframes rise{
+  0%{transform:translateY(0) rotate(-5deg);opacity:0}
+  10%{opacity:.9}
+  100%{transform:translateY(-125vh) rotate(15deg);opacity:0}
+}
+
+.secret-jasmine{
+  position:absolute;
+  width:44px;
+  height:44px;
+  opacity:.55;
+  animation:sway 5s ease-in-out infinite;
+}
+
+.secret-jasmine::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    radial-gradient(ellipse at 50% 7%,#fff 0 30%,transparent 32%),
+    radial-gradient(ellipse at 93% 50%,#fff 0 30%,transparent 32%),
+    radial-gradient(ellipse at 50% 93%,#fff 0 30%,transparent 32%),
+    radial-gradient(ellipse at 7% 50%,#fff 0 30%,transparent 32%);
+  border-radius:50%;
+}
+
+.secret-jasmine::after{
+  content:"";
+  position:absolute;
+  width:10px;
+  height:10px;
+  left:50%;
+  top:50%;
+  transform:translate(-50%,-50%);
+  background:#dfbd79;
+  border-radius:50%;
+}
+
+/* =========================================================
+   MUSIC
+   ========================================================= */
+
+.music{
+  position:fixed;
+  z-index:500;
+  right:20px;
+  bottom:20px;
+  width:48px;
+  height:48px;
+  border-radius:50%;
+  border:1px solid rgba(255,255,255,.65);
+  background:rgba(255,250,245,.75);
+  backdrop-filter:blur(12px);
+  color:var(--wine);
+  cursor:pointer;
+  box-shadow:0 10px 25px rgba(54,23,34,.13);
+}
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media(max-width:800px){
+  .letter-layout{
+    grid-template-columns:1fr;
+    gap:35px;
+  }
+
+  .photo-grid{
+    grid-template-columns:repeat(2,1fr);
+    gap:15px;
+  }
+
+  .memories-head{
+    display:block;
+  }
+
+  .memory-count{
+    margin-top:10px;
+  }
+}
+
+@media(max-width:520px){
+  .page{
+    padding:75px 17px;
+  }
+
+  .lock-card{
+    padding:45px 23px 35px;
+  }
+
+  .lock-card h1{
+    font-size:64px;
+  }
+
+  .photo-grid{
+    gap:10px;
+  }
+
+  .photo{
+    padding:7px 7px 13px;
+  }
+
+  .photo-caption{
+    font-size:14px;
+  }
+
+  .letter{
+    padding:40px 25px;
+  }
+
+  .letter p{
+    font-size:18px;
+  }
+
+  #yes{
+    left:13%;
+  }
+
+  #no{
+    left:55%;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- =======================================================
+     PASSWORD SCREEN
+     ======================================================= -->
+
+<section id="lockScreen">
+
+  <div class="lock-card">
+
+    <div class="lock-jasmine">✿</div>
+
+    <div class="tiny">a little place made for you</div>
+
+    <h1>palak23</h1>
+
+    <p>
+      There is something waiting behind this door.
+    </p>
+
+    <input
+      id="password"
+      class="lock-input"
+      type="password"
+      maxlength="20"
+      placeholder="password"
+      autocomplete="off"
+    >
+
+    <button class="enter" onclick="unlock()">
+      enter ♡
+    </button>
+
+    <div id="wrong"></div>
+
+  </div>
+
+</section>
+
+
+<!-- =======================================================
+     WEBSITE
+     ======================================================= -->
+
+<main id="site">
+
+
+<!-- =======================================================
+     PAGE 1 — HELLO
+     ======================================================= -->
+
+<section class="page" id="home">
+
+  <div class="jasmine-layer" id="jasmineHome"></div>
+
+  <div class="page-number">01 / 04</div>
+  <div class="corner right">for palak, with love</div>
+
+  <div class="page-inner home-content">
+
+    <div class="eyebrow">
+      a tiny universe made for one girl
+    </div>
+
+    <h1 class="home-title">
+      Hello
+      <span class="script">sunshine.</span>
+    </h1>
+
+    <div class="gold-line"></div>
+
+    <p class="home-sub">
+      I could have simply wished you happy birthday...
+      but you deserve a little more than that.
+    </p>
+
+  </div>
+
+  <div class="scroll">
+    keep going
+    <span>↓</span>
+  </div>
+
+</section>
+
+
+<!-- =======================================================
+     PAGE 2 — LETTER
+     ======================================================= -->
+
+<section class="page" id="letterPage">
+
+  <div class="jasmine-layer" id="jasmineLetter"></div>
+
+  <div class="page-number">02 / 04</div>
+  <div class="corner right">the things i don't say enough</div>
+
+  <div class="page-inner letter-layout">
+
+    <div>
+
+      <div class="section-label">
+        chapter two
+      </div>
+
+      <h2 class="section-title script">
+        For my<br>sunshine
+      </h2>
+
+      <div class="gold-line" style="margin-left:0"></div>
+
+      <p class="side-copy">
+        Some feelings are too big to fit inside a birthday
+        message. So I made you a whole page instead for you my sweetheart.
+        Still the page is not enough to express it either.
+      </p>
+
+    </div>
+
+
+    <article class="letter">
+
+      <!-- =================================================
+           ✏️ YOUR LETTER STARTS HERE
+           Replace the paragraphs below.
+           ================================================= -->
+
+      <p class="edit-me">
+        My love,
+      </p>
+
+      <p class="edit-me">
+        You know that you are the most amazing person god has ever created. You have got the most beautiful eyes and smile.
+        I'm so blessed to have you in my life. You are my everything and I love you more than anything in this world.
+        You don't have any idea how much i love you , how much i miss you everyday and how much i want to be with you.
+        God sent you in my life , coz he knew i needed you , needed an angel like you to be with me. You are my angel and i will always love you and take care of you. 
+        I promise to be with you forever and make you the happiest girl in this world.
+    
+      </p>
+
+      <p class="edit-me">
+        I know you don't trust me but i will never do anything to hurt you. I will always be there for you and support you in every situation. You are my life and i will never let you go.
+        I will never ever give up on you and our love. Everytime you feel i'm not giving you attention or i'm ignoring you or i don't love you anymore.
+        I'll always make you feel special and i will let you know that you are the only person i love and care for.
+      </p>
+
+      <p class="edit-me">
+        Love has been a small word for my feelings for you. Sometimes i feel jealous of the word LOVE , because it comes between I and You.
+        No one in this world can love you more than me. I love you more than you can ever imagine. 
+        I know no one had hurt you more than i did , but trust me no one can ever love u the way i do. and i mean it, no one means NO ONE.
+        Not ur friends , not ur cousins , not the person u r with , not even ur parents , no one can love u more than me and i can say it in front of the whole world and i can prove it by any means.
+        pyaar to bohot door h , mere jitna koi intzaar bhi kr sake to kehna. 3 saal hone ko h and still im waiting for u to come back and i will wait untill u come back or until i die.
+        now it seems , dying is easier
+      </p>
+
+      <p class="edit-me">
+        Always yours,
+        <br>
+        yesterday,today and forever. only and only yours.
+      </p>
+
+      <!-- =================================================
+           ✏️ YOUR LETTER ENDS HERE
+           ================================================= -->
+
+    </article>
+
+  </div>
+
+  <div class="scroll">
+    keep going
+    <span>↓</span>
+  </div>
+
+</section>
+
+
+<!-- =======================================================
+     PAGE 3 — MEMORIES
+     ======================================================= -->
+
+<section class="page" id="memories">
+
+  <div class="jasmine-layer" id="jasmineMemories"></div>
+
+  <div class="page-number">03 / 04</div>
+  <div class="corner right">six little clicks</div>
+
+  <div class="page-inner">
+
+    <div class="memories-head">
+
+      <div>
+        <div class="section-label">chapter three</div>
+
+        <h2 class="section-title">
+          You, in little<br>frames.
+        </h2>
+      </div>
+
+      <div class="memory-count">
+        06 MEMORIES
+      </div>
+
+    </div>
+
+
+    <!-- ===================================================
+         ✏️ PHOTO SECTION
+         Replace ONLY the URLs inside src="..."
+         with your own image URLs.
+         =================================================== -->
+
+    <div class="photo-grid">
+
+      <div class="photo" style="--r:-2deg">
+        <img
+          src="photoss/photo1.jpeg"
+          alt="Memory 1"
+        >
+        <div class="photo-caption">
+          cute sleepy head.
+        </div>
+      </div>
+
+      <div class="photo" style="--r:2deg">
+        <img
+          src="photoss/photo2.png"
+          alt="Memory 2"
+        >
+        <div class="photo-caption">
+          cutie pie.
+        </div>
+      </div>
+
+      <div class="photo" style="--r:-1deg">
+        <img
+          src="photoss/photo3.jpeg"
+          alt="Memory 3"
+        >
+        <div class="photo-caption">
+          the bhootni i love so much.
+        </div>
+      </div>
+
+      <div class="photo" style="--r:2deg">
+        <img
+          src="photoss/photo4.jpeg"
+          alt="Memory 4"
+        >
+        <div class="photo-caption">
+          forever.
+        </div>
+      </div>
+
+      <div class="photo" style="--r:-2deg">
+        <img
+          src="photoss/photo5.jpeg"
+          alt="Memory 5"
+        >
+        <div class="photo-caption">
+          cute little diva.
+        </div>
+      </div>
+
+      <div class="photo" style="--r:1deg">
+        <img
+          src="photoss/photo6.jpeg"
+          alt="Memory 6"
+        >
+        <div class="photo-caption">
+          if i could pause time , i would pause it for eternity to be with you.
+        </div>
+      </div>
+
+    </div>
+
+
+    <!-- ===================================================
+         ✏️ YOUR SHAYARI STARTS HERE
+         =================================================== -->
+
+    <div class="shayari">
+
+      <span>
+    <br>
+
+Sirf Tum<br>
+
+Har dua mein tera hi naam aata hai, <br>
+Har khushi se pehle tera khayal aata hai. <br>
+Jo toot gaya tha meri hi khata se kabhi,<br>
+Aaj bhi wahi dil tujhe hi bulata hai.<br>
+<br>
+Na chand chahiye, na sitaron ki roshni,<br>
+Bas ek baar mil jaaye teri woh hansi.<br>
+Maine jo dard diye, unka bojh uthata hoon,<br>
+Har waqt apni galtiyon pe aansu bahata hoon.<br>
+Har saans ke saath tera ehsaas rehta hai,<br>
+Mera har khwaab bas tere paas rehta hai.<br>
+Jo lafz kabhi keh na saka, aaj kehne do,<br>
+Dil cahata h zakhm tujhe dikhne ko.<br>
+Meri galtiyon se dukhi ho tum, mujhe maaf karo...<br>
+Bas itna sa ehsaan meri jaan, ek baar karo.<br>
+<br>
+Main badal gaya hoon, ye waqt gawah hai,<br>
+Mera har iraada ab sirf wafaa hai.<br>
+Na koi shikayat, na koi gila hai,<br>
+Bas tere bina har din adhoora mila hai.<br>
+<br>
+Tumhare siva na koi aur chahiye...<br>
+Meri har dua mein bas tera hi chehra chahiye.<br>
+Tum hi mera akela ishq ho...<br>
+Mere dil ki har dhadkan ka iklauta zikr ho.<br>
+Mere liye mohabbat ka matlab hi tum ho...<br>
+Meri duniya ki har khushi aur har gham tum ho.<br>
+Zindagi bitane ko, mere sirf tum ho...<br>
+Rab se jo maanga tha, woh sab tum ho.<br>
+<br>
+Na chaand chahiye, na sitare chahiye,<br>
+Bas tumhari hansi ke sahare chahiye.<br>
+Har mod pe tera intezaar karta hoon,<br>
+Khud se zyada tum pe aitbaar karta hoon.<br>
+Jo sapne humne milke sajaaye the kabhi,<br>
+Aaj bhi unmein sirf tum hi tum ho basi.<br>
+Agar ek mauka phir se mil jaaye mujhe,<br>
+Har aansu ki jagah muskaan de jaaun tujhe.<br>
+Tumhara saath paane ko, kuch bhi kar jaaunga...<br>
+Apni har khushi bhi tere naam kar jaaunga.<br>
+<br>
+Na daulat ka sapna, na shohrat ka junoon,<br>
+Bas tere saath jeena hi mera sukoon.<br>
+Dil maanta hi nahi kisi aur ki baat,<br>
+Tu hi meri subah, tu hi meri raat,<br>
+Tum pr he khatam ishq mera , tumse he shuruaat.<br>
+<br>
+Tumhare siva koi aur na chahiye mujhko...<br>
+Har janam mein sirf tera hi saath chahiye mujhko.<br>
+Ishq ya to tumse, ya kisi se nahi...<br>
+Mere dil ki kahaani mein doosra koi nahi.<br>
+Tum hi mera akela ishq ho...<br>
+Har dua ka aakhri zikr ho.<br>
+Mere liye mohabbat ka matlab hi tum ho...<br>
+Meri zindagi ka sabse khoobsurat sach tum ho.<br>
+<br>
+Agar saza deni ho, toh hans ke de dena,<br>
+Par apni yaadon se kabhi alag na kar dena.<br>
+Main toot bhi jaaun toh naam tera loonga,<br>
+Har janam mein bas tera hi banoonga.<br>
+Na dil kisi aur ka kabhi ho paayega,<br>
+Ye ishq sirf tera hi kehlaayega.<br>
+Khuda bhi pooche agar meri aakhri khwahish kya hai,<br>
+Bas tera haath... aur kuch bhi nahi , orr mere paas kya hai.<br>
+<br>
+Haan pyaar tha tumse...<br>
+Haan aaj bhi hai...<br>
+marte dam tak rahega...<br>
+Chahe saari duniya mujhse rooth jaaye,<br>
+Par mera dil kabhi tujhse na toot paaye.<br>
+Jo mohabbat maine ki hai, woh kabhi kam na hogi,<br>
+Tere naam se hi meri har saans judi hogi.<br>
+Zindagi bhar sirf tumse pyaar karun...<br>
+Har janam mein tera hi intezaar karun.<br>
+Agar kabhi laut ke aa jao meri zindagi mein,<br>
+Har pal tujhe khush rakhne ka vaada karun.<br>
+<br>
+Tumhare siva na koi aur chahiye...<br>
+Har dua mein tera hi naam chahiye.<br>
+Tum hi mera akela ishq ho...<br>
+Mere dil ka aakhri bhi tum hi zikr ho.<br>
+Tumhara saath paane ko, kuch bhi kar jaaunga...<br>
+Har mushkil se ladkar bhi tujhe hi paaunga.<br>
+Ishq ya to tumse, ya kisi se nahi...<br>
+Mere dil mein tere siwa ab koi nahi.<br>
+Mere liye mohabbat ka matlab hi tum ho...<br>
+Meri har dua ka jawab tum ho.<br>
+Tumhare siva koi aur na chahiye mujhko...<br>
+Zindagi bitane ko, mere sirf tum ho...<br>
+Meri galtiyon se dukhi ho tum... mujhe maaf karo...<br>
+Bas ek baar laut aao...<br>
+Main zindagi bhar sirf tumse pyaar karun...<br>
+Sirf tumse...<br>
+Sirf tumse...
+
+
+      </span>
+
+    </div>
+
+    <!-- ===================================================
+         ✏️ YOUR SHAYARI ENDS HERE
+         =================================================== -->
+
+  </div>
+
+  <div class="scroll">
+    one last thing
+    <span>↓</span>
+  </div>
+
+</section>
+
+
+<!-- =======================================================
+     PAGE 4 — QUESTION
+     ======================================================= -->
+
+<section class="page" id="questionPage">
+
+  <div class="jasmine-layer" id="jasmineQuestion"></div>
+
+  <div class="page-number">04 / 04</div>
+  <div class="corner right">there is a question</div>
+
+  <div class="page-inner question-wrap">
+
+    <div class="question-small">
+      before you leave...
+    </div>
+
+    <h2 class="question">
+      Will you promise me<br> that you will be happy forever?
+    </h2>
+
+    <div class="gold-line"></div>
+
+    <p class="question-sub">
+      Choose carefully. There is definitely no trick here. :)<br>
+      no matter how hard you try, you can't say no , u can try baby
+    </p>
+
+    <div class="answers" id="answers">
+
+      <button
+        class="answer"
+        id="yes"
+        onclick="yesClicked()"
+      >
+        Yes ♡
+      </button>
+
+      <button
+        class="answer"
+        id="no"
+        onclick="moveNo()"
+      >
+        No
+      </button>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =======================================================
+     SECRET PAGE
+     This section is HIDDEN until YES is clicked.
+     ======================================================= -->
+
+<section class="page" id="secret">
+
+  <div class="celebration-layer" id="celebration"></div>
+
+  <div class="page-inner secret-inner">
+
+    <div class="secret-overline">
+      you found the secret page
+    </div>
+
+    <div class="gold-line"></div>
+
+    <h2 class="secret-script">
+      I love you.
+    </h2>
+
+    <!-- =================================================
+         ✏️ FINAL MESSAGE
+         ================================================= -->
+
+    <p class="secret-message">
+      I have always wanted just 1 thing from you my dear love , You to be Happy.
+      I know i'm being selfish here , but can i ask you for one more thing?
+      Will you be my forever? i promise to make you the happiest girl in the whole world.
+      i'll be standing there by your side , through thick and thin , through all the ups and downs of life.
+      even if the whole universe is against you , i'll still be there with you.
+      i love you so much that i can even die for you. i worship you. 
+      i'll never let you go. Please come back.
+    <br>
+      My bright light , my sunshine , my hippo , my chota hathi , my moon , my kajukatli , my panda , my motiii , my chota don , my everything<br>
+      Happy 22nd Birthday Palak.<br>
+      HAPPY BIRTHDAY MY LOVE ❤️
+    </p>
+
+    <div class="secret-sign">
+      always yours ♡
+    </div>
+
+    <!-- =================================================
+         ✏️ END FINAL MESSAGE
+         ================================================= -->
+
+  </div>
+
+</section>
+
+
+</main>
+
+
+<!-- =======================================================
+     MUSIC
+     =======================================================
+
+     Put your song file in the SAME folder as index.html.
+
+     Example:
+       index.html
+       zindagi.mp3
+
+     Then keep:
+       const SONG_FILE = "zindagi.mp3";
+
+     If your file is named something else, change it below.
+     ======================================================= -->
+
+<audio id="music" loop preload="auto">
+  <source id="musicSource" src="" type="audio/mpeg">
+</audio>
+
+<button
+  class="music"
+  id="musicButton"
+  onclick="toggleMusic()"
+  title="Music"
+>
+  ♫
+</button>
+
+
+<script>
+
+/* =========================================================
+   EASY SETTINGS
+   ========================================================= */
+
+const PASSWORD = "231104";
+
+/*
+   🎵 SONG FILE
+
+   Put your song in the same folder as index.html.
+
+   Example:
+   zindagi.mp3
+
+   Then use:
+*/
+const SONG_FILE = "zindagi.mp3";
+
+
+/* =========================================================
+   PASSWORD
+   ========================================================= */
+
+const lockScreen = document.getElementById("lockScreen");
+const passwordInput = document.getElementById("password");
+const wrong = document.getElementById("wrong");
+const site = document.getElementById("site");
+
+function unlock(){
+
+  if(passwordInput.value === PASSWORD){
+
+    lockScreen.classList.add("open");
+
+    setTimeout(()=>{
+      site.classList.add("show");
+      startMusic();
+    },450);
+
+  }else{
+
+    wrong.textContent = "Nope ♡ try again.";
+
+    passwordInput.value = "";
+
+    passwordInput.animate(
+      [
+        {transform:"translateX(0)"},
+        {transform:"translateX(-9px)"},
+        {transform:"translateX(9px)"},
+        {transform:"translateX(-6px)"},
+        {transform:"translateX(0)"}
+      ],
+      {duration:350}
+    );
+  }
+}
+
+passwordInput.addEventListener("keydown",e=>{
+  if(e.key==="Enter") unlock();
+});
+
+
+/* =========================================================
+   MUSIC
+   ========================================================= */
+
+const music = document.getElementById("music");
+const musicSource = document.getElementById("musicSource");
+const musicButton = document.getElementById("musicButton");
+
+musicSource.src = SONG_FILE;
+music.load();
+
+function startMusic(){
+
+  music.volume=.38;
+
+  music.play()
+    .then(()=>{
+      musicButton.textContent="♫";
+    })
+    .catch(()=>{
+      musicButton.textContent="♪";
+    });
+}
+
+function toggleMusic(){
+
+  if(music.paused){
+
+    music.play()
+      .then(()=>{
+        musicButton.textContent="♫";
+      })
+      .catch(()=>{});
+
+  }else{
+
+    music.pause();
+    musicButton.textContent="♪";
+  }
+}
+
+
+/* =========================================================
+   JASMINE GENERATOR
+   ========================================================= */
+
+function makeJasmine(containerId,count=14){
+
+  const container=document.getElementById(containerId);
+
+  if(!container) return;
+
+  for(let i=0;i<count;i++){
+
+    const flower=document.createElement("div");
+
+    flower.className="jasmine";
+
+    const size=20+Math.random()*30;
+
+    flower.style.width=size+"px";
+    flower.style.height=size+"px";
+
+    flower.style.left=Math.random()*100+"%";
+    flower.style.top=Math.random()*100+"%";
+
+    flower.style.opacity=.28+Math.random()*.45;
+
+    flower.style.animationDelay=
+      Math.random()*4+"s";
+
+    flower.style.animationDuration=
+      4+Math.random()*4+"s";
+
+    container.appendChild(flower);
+  }
+}
+
+makeJasmine("jasmineHome",12);
+makeJasmine("jasmineLetter",14);
+makeJasmine("jasmineMemories",15);
+makeJasmine("jasmineQuestion",13);
+
+
+/* =========================================================
+   FALLING JASMINE PETALS
+   ========================================================= */
+
+function fallingPetal(){
+
+  const petal=document.createElement("div");
+
+  petal.style.position="fixed";
+  petal.style.zIndex="20";
+  petal.style.pointerEvents="none";
+  petal.style.top="-30px";
+  petal.style.left=Math.random()*100+"vw";
+
+  const size=6+Math.random()*8;
+
+  petal.style.width=size+"px";
+  petal.style.height=size*1.5+"px";
+
+  petal.style.borderRadius="70% 30% 70% 30%";
+  petal.style.background="rgba(255,250,245,.88)";
+  petal.style.boxShadow="0 2px 5px rgba(80,30,45,.08)";
+
+  const duration=5+Math.random()*6;
+
+  petal.animate(
+    [
+      {
+        transform:"translateY(-30px) rotate(0deg)",
+        opacity:0
+      },
+      {
+        transform:"translateY(15vh) translateX(40px) rotate(120deg)",
+        opacity:.8
+      },
+      {
+        transform:"translateY(110vh) translateX(-80px) rotate(480deg)",
+        opacity:0
+      }
+    ],
+    {
+      duration:duration*1000,
+      easing:"linear"
+    }
+  );
+
+  document.body.appendChild(petal);
+
+  setTimeout(()=>{
+    petal.remove();
+  },duration*1000+100);
+}
+
+setInterval(fallingPetal,700);
+
+
+/* =========================================================
+   NO BUTTON — RUNS AWAY
+   ========================================================= */
+
+const noButton=document.getElementById("no");
+const answers=document.getElementById("answers");
+
+function moveNo(){
+
+  const rect=answers.getBoundingClientRect();
+
+  const buttonW=noButton.offsetWidth;
+  const buttonH=noButton.offsetHeight;
+
+  const maxX=Math.max(0,rect.width-buttonW);
+  const maxY=Math.max(0,rect.height-buttonH);
+
+  noButton.style.left=Math.random()*maxX+"px";
+  noButton.style.top=Math.random()*maxY+"px";
+}
+
+noButton.addEventListener("mouseenter",moveNo);
+
+noButton.addEventListener("touchstart",e=>{
+  e.preventDefault();
+  moveNo();
+});
+
+
+/* =========================================================
+   YES — OPEN SECRET PAGE
+   ========================================================= */
+
+function yesClicked(){
+
+  const secret=document.getElementById("secret");
+
+  secret.classList.add("revealed");
+
+  createCelebration();
+  createSecretJasmine();
+
+  setTimeout(()=>{
+    secret.scrollIntoView({
+      behavior:"smooth"
+    });
+  },100);
+
+  if(music.paused){
+    music.play().catch(()=>{});
+    musicButton.textContent="♫";
+  }
+}
+
+
+/* =========================================================
+   SECRET PAGE JASMINE
+   ========================================================= */
+
+function createSecretJasmine(){
+
+  const secret=document.getElementById("secret");
+
+  for(let i=0;i<24;i++){
+
+    const flower=document.createElement("div");
+
+    flower.className="secret-jasmine";
+
+    const size=22+Math.random()*34;
+
+    flower.style.width=size+"px";
+    flower.style.height=size+"px";
+
+    flower.style.left=Math.random()*100+"%";
+    flower.style.top=Math.random()*100+"%";
+
+    flower.style.animationDelay=
+      Math.random()*3+"s";
+
+    secret.appendChild(flower);
+  }
+}
+
+
+/* =========================================================
+   SECRET CELEBRATION
+   ========================================================= */
+
+function createCelebration(){
+
+  const layer=document.getElementById("celebration");
+
+  layer.innerHTML="";
+
+  const symbols=[
+    "🎈",
+    "🎈",
+    "🌸",
+    "🌷",
+    "💐",
+    "🤍",
+    "✨",
+    "🌼"
+  ];
+
+  for(let i=0;i<42;i++){
+
+    const item=document.createElement("div");
+
+    item.className="balloon";
+
+    item.textContent=
+      symbols[Math.floor(Math.random()*symbols.length)];
+
+    item.style.left=Math.random()*100+"%";
+
+    item.style.fontSize=
+      18+Math.random()*25+"px";
+
+    item.style.animationDelay=
+      Math.random()*3+"s";
+
+    item.style.animationDuration=
+      5+Math.random()*5+"s";
+
+    layer.appendChild(item);
+  }
+}
+
+
+/* =========================================================
+   START AT TOP
+   ========================================================= */
+
+window.addEventListener("load",()=>{
+  window.scrollTo(0,0);
+});
+
+</script>
+
+</body>
+</html>
